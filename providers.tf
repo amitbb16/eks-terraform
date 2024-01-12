@@ -8,6 +8,6 @@ terraform {
 }
 
 provider "aws" {
-  profile = "default"
+  profile = "amit"
   region  = "us-west-2"
 }

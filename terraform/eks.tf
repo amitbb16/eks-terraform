@@ -5,6 +5,21 @@ module "eks" {
   cluster_name                   = var.cluster_name
   cluster_version                = var.cluster_version
   cluster_endpoint_public_access = true
+  cluster_addons = {
+    vpc-cni = {
+      before_compute = true
+      most_recent    = true
+      configuration_values = jsonencode({
+        env = {
+          ENABLE_POD_ENI                    = "true"
+          ENABLE_PREFIX_DELEGATION          = "true"
+          POD_SECURITY_GROUP_ENFORCING_MODE = "standard"
+        }
+
+        enableNetworkPolicy = "true"
+      })
+    }
+}
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets

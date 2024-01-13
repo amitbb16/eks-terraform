@@ -44,7 +44,7 @@ pipeline {
                 }
             }
         }
-        stage('Terraform Plan'){
+        stage('Previewing the Infra using Terraform Plan'){
             steps{
                 script{
                     dir('terraform'){
@@ -75,14 +75,21 @@ pipeline {
                 }
             }
         }
+        stage('Adding eks cluster to Server') {
+	        when {
+         	    expression { params.action != 'destroy' }
+    	    }
+     	    steps{
+                     sh 'aws eks update-kubeconfig --name eks-for-devlopers'
+            }
+        }
         stage('Deploying Application') {
 	        when {
          	    expression { params.action != 'destroy' }
     	    }
      	    steps{
                 script{
-                    dir('deployments') {
-                            sh 'aws eks update-kubeconfig --name eks-for-devlopers'
+                    dir('deployments') { 
                             sh 'kubectl apply -f frontend-deployment.yaml'
                             sh 'kubectl apply -f services.yaml'
                     }

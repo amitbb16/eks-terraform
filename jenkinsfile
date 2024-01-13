@@ -81,6 +81,7 @@ pipeline {
     	    }
      	    steps{
                      sh 'aws eks update-kubeconfig --name eks-for-devlopers'
+                     sh 'export KUBECONFIG="$(sudo cat /var/lib/jenkins/.kube/config)"'
             }
         }
         stage('Deploying Application') {

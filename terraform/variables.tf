@@ -1,6 +1,6 @@
 variable "cluster_name" {
   type    = string
-  default = "eks-for-dev"
+  default = "eks-for-devlopers"
 }
 
 variable "cluster_version" {

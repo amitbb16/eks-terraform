@@ -25,3 +25,9 @@ variable "aws_region" {
   type        = string
   default     = "us-west-2"
 }
+
+variable "vpc_cidr" {
+  description = "Defines the CIDR block used on Amazon VPC created for Amazon EKS."
+  type        = string
+  default     = "10.12.0.0/16"
+}

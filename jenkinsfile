@@ -10,10 +10,10 @@ pipeline {
         AWS_DEFAULT_REGION = "us-west-2"
     }
     stages {
-        stage('Checkout SCM'){
+        stage('Checkout SCM from QA'){
             steps{
                 script{
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/amitbb16/eks-terraform.git']])
+                    checkout scmGit(branches: [[name: '*/QA']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/amitbb16/eks-terraform.git']])
                 }
             }
         }
